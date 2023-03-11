@@ -51,4 +51,5 @@ with DAG(
         command='echo "this is a test message shown from within the container',
         docker_url='unix://var/run/docker.sock',
         network_mode='bridge'
+        #test_adsfadsfadsfsd
     )

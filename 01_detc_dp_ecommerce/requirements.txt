@@ -1,7 +1,7 @@
 pyspark==3.3.0
-python-dotenv==0.20.0
+python-dotenv==0.21.0
 pytest==7.1.2
 # apache-airflow==2.3.4
 -c https://raw.githubusercontent.com/apache/airflow/constraints-2.5.0/constraints-no-providers-3.10.txt
 apache-airflow==2.5.0  
-pache-airflow-providers-docker==3.5.1
+apache-airflow-providers-docker==3.5.1
