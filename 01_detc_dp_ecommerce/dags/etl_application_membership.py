@@ -30,17 +30,18 @@ class etl:
         return coalesce(*[to_date(col, f) for f in formats])
 
     
-    def load_raw_data(raw_path) :
+    def load_raw_data(raw_path, _run_id) :
         print("raw_path: " +raw_path)
-        run_id = datetime.datetime.now().strftime('%Y%m%d_%H')
-        raw_path = raw_path+"/"+run_id
+        # run_id = datetime.datetime.now().strftime('%Y%m%d_%H')
+        raw_path = raw_path+"/"+_run_id
+        print("raw_path: " +raw_path)
         print("stage 1 - Load Raw Data")
         try:
             # raw_folder_path="/Users/santhoshjanakiraman/airflow/dags/datafiles/raw"        
             etl.df_processing = etl.spark.read.format("csv").option("header","true").load(raw_path).withColumn("filename",f.input_file_name())
             print("- data files from the path "+raw_path+" were successfully loaded to dataframe")
         except Exception as e:
-            print("- exception:"+ str(e.message))
+            print("- exception:")
 
         
     def validate_mobile_number(df):
@@ -127,9 +128,10 @@ class etl:
                                                 f.concat(col("last_name"), f.lit("_") , f.substring(f.sha2( f.date_format(col("dob"),"yyyyMMdd" ) ,256) ,0,5))) 
                                         .otherwise(""))
 
-    
-    def process_application_membership(self):
-        etl.load_raw_data(etl.raw_path)
+    @staticmethod
+    def process_application_membership(_run_id):
+        print("rund id --------------------------------"+ _run_id)
+        etl.load_raw_data(etl.raw_path, _run_id)
         etl.validate_mobile_number(etl.df_processing)
         etl.validate_dob(etl.df_processing)
         etl.validate_email(etl.df_processing,".+@.+\.com|.biz")
@@ -147,11 +149,11 @@ class etl:
                 shutil.rmtree(os.path.join(root, d))
                         
     
-    def copy_files_and_folders(src, dest):
+    def copy_files_and_folders(src, dest, _run_id):
         # runiId = date.now()
-        run_id = datetime.datetime.now().strftime('%Y%m%d_%H')
-        print("runid: "+str(run_id))
-        dest = dest+"/"+run_id
+        # run_id = datetime.datetime.now().strftime('%Y%m%d_%H')
+        print("runid: "+str(_run_id))
+        dest = dest+"/"+_run_id
         print("newpath: "+str(dest))
 
         if not os.path.exists(dest):
@@ -174,8 +176,10 @@ class etl:
                 os.mkdir(new_dest)
                 etl.recursive_copy(file_path, new_dest)
 
-    def move_files_to_raw(self):
-        etl.copy_files_and_folders(etl.input_path,etl.raw_path)
+    @staticmethod
+    def move_files_to_raw(_run_id):
+        print("rund id --------------------------------"+ _run_id)
+        etl.copy_files_and_folders(etl.input_path,etl.raw_path, _run_id)
         etl.delete_files(etl.input_path)
         
 # etl.load_raw_data()
