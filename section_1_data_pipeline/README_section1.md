@@ -64,7 +64,10 @@ pip install -r section_1_data_pipeline/requirements.txt
             [Successful Applications](/section_1_data_pipeline/datafiles/stage/20230312_17/successful_applications/part-00000-975bb8b3-f1b7-4e06-a07d-d818373b8cb8-c000.csv)
 
      - Dataset 2 : Error records. The list includes the error detils in the column comments
-  1. create dags 
+       - File Path: 
+            [Error Records](/section_1_data_pipeline/datafiles/stage/20230312_17/error_records/part-00000-75a049a1-fb0b-4ab9-8831-60abf760e795-c000.csv)
+            
+  2. create dags 
      - Create a dag to excure below task
      - Copy sources file to Raw Folder
         - Copy the file from the input folder (assuming this is the source location that will receive the files ) to raw
