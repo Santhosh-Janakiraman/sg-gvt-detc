@@ -14,8 +14,8 @@ run_id = str(datetime.now().strftime('%Y%m%d_%H'))
 
 def dp_process_application_membership():
     e = etl()
-    df = e.process_application_membership(run_id)
-    df.show()
+    e.process_application_membership(run_id)
+    
 
 def dp_move_files_to_raw():
     e = etl()
@@ -23,7 +23,7 @@ def dp_move_files_to_raw():
     
 
 with DAG(
-    dag_id='dag_process_appliction_membership'
+    dag_id='dag_process_appliction_membership_1'
     ,schedule_interval='0 * * * *'
     ,start_date=datetime(year=2022, month=3, day=11)
     ,catchup=False

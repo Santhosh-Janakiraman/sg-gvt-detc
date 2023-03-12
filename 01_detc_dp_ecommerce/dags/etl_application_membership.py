@@ -14,7 +14,6 @@ class etl:
     stage_path = "/Users/santhoshjanakiraman/airflow/dags/datafiles/stage"
     input_path = "/Users/santhoshjanakiraman/airflow/dags/datafiles/input"
 
-
     spark = SparkSession \
                     .builder \
                     .appName("membership_processing") \
@@ -30,21 +29,32 @@ class etl:
         return coalesce(*[to_date(col, f) for f in formats])
 
     
+    def find_csv_filenames( path_to_dir, suffix=".csv" ):
+        filenames = os.listdir(path_to_dir)
+        return [ filename for filename in filenames if filename.endswith( suffix ) ]
+
     def load_raw_data(raw_path, _run_id) :
         print("raw_path: " +raw_path)
         # run_id = datetime.datetime.now().strftime('%Y%m%d_%H')
         raw_path = raw_path+"/"+_run_id
         print("raw_path: " +raw_path)
-        print("stage 1 - Load Raw Data")
+        lst = etl.find_csv_filenames(raw_path)
+        print("file count:" + str(len(lst)))
+
+        if len(lst) == 0:
+            print("no files found")
+            return 0
+    
         try:
             # raw_folder_path="/Users/santhoshjanakiraman/airflow/dags/datafiles/raw"        
             etl.df_processing = etl.spark.read.format("csv").option("header","true").load(raw_path).withColumn("filename",f.input_file_name())
             print("- data files from the path "+raw_path+" were successfully loaded to dataframe")
+            return 1
             # etl.df_processing.show()
         except Exception as e:
-            print("- exception:")
-
-        
+            print("exception")
+            return 0
+                    
     def validate_mobile_number(df):
         print("stage 2 - Validate Mobile Niumber")
         etl.df_processing = df.withColumn("badRecord" 
@@ -149,7 +159,8 @@ class etl:
     
 
     def delete_folder(delete_path):
-        shutil.rmtree(os.path.join(delete_path))
+        if os.path.exists(delete_path) and os.path.isdir(delete_path):
+            shutil.rmtree(os.path.join(delete_path))
 
     def delete_files(delete_path):
         for root, dirs, files in os.walk(delete_path):
@@ -190,7 +201,7 @@ class etl:
     def move_files_to_raw(_run_id):
         print("rund id --------------------------------"+ _run_id)
         etl.copy_files_and_folders(etl.input_path,etl.raw_path, _run_id)
-        etl.delete_files(etl.input_path)
+        # etl.delete_files(etl.input_path)
     
 
     def write_dataframe_to_stage(df, stage_path, _runid):
@@ -199,24 +210,34 @@ class etl:
         print(etl.stage_path+"/"+_runid)
 
         print("write transformed dataframe to stage")
-        write_file = stage_path+"/"+_runid
+        write_file = stage_path+"/"+_runid + "/full_data/"
         df.repartition(1).write.option("header","true").csv(write_file)
+
+        write_file = stage_path+"/"+_runid + "/successful_applications/"
+        df_successful_applications = df.filter(f.trim(col("membership_id")) != "")
+        df_successful_applications.repartition(1).write.option("header","true").csv(path=write_file,mode="overwrite")
+
+        write_file = stage_path+"/"+_runid + "/error_records/"
+        df_error_records = df.filter(f.trim(col("badRecord")) == True)
+        df_error_records.repartition(1).write.option("header","true").csv(path=write_file,mode="overwrite")
 
 
     @staticmethod
     def process_application_membership(_run_id):
         print("rund id --------------------------------"+ _run_id)
-        etl.load_raw_data(etl.raw_path, _run_id)
-        etl.validate_mobile_number(etl.df_processing)
-        etl.validate_dob(etl.df_processing)
-        etl.validate_email(etl.df_processing,".+@.+\.com|.biz")
-        etl.calculate_age(etl.df_processing)
-        etl.split_first_last_name(etl.df_processing)
-        etl.generate_membership_id(etl.df_processing)
-        etl.prepare_output_dataframe(etl.df_processing)
-        etl.write_dataframe_to_stage(etl.df_processing,etl.stage_path,_run_id)
-        
-        return etl.df_processing
+        status = etl.load_raw_data(etl.raw_path, _run_id)
+        print ("status: "+str(status))
+        if status != 0:
+            etl.validate_mobile_number(etl.df_processing)
+            etl.validate_dob(etl.df_processing)
+            etl.validate_email(etl.df_processing,".+@.+\.com|.biz")
+            etl.calculate_age(etl.df_processing)
+            etl.split_first_last_name(etl.df_processing)
+            etl.generate_membership_id(etl.df_processing)
+            etl.prepare_output_dataframe(etl.df_processing)
+            etl.write_dataframe_to_stage(etl.df_processing,etl.stage_path,_run_id)
+        # return etl.df_processing
+    
 # etl.load_raw_data()
 # etl.validate_mobile_number(etl.df_processing)
 # etl.validate_dob(etl.df_processing)
@@ -228,4 +249,4 @@ class etl:
 # etl.copy_files_and_folders(input_path,raw_path)
 # etl.delete_files(input_path)
 
-etl.process_application_membership("20230312_15")
+# etl.process_application_membership("20230312_16")
