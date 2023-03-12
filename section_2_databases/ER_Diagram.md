@@ -66,5 +66,5 @@
 
 ## Refernce ER Diagram
 
-<img src="ER-Diagram.png" width=800 /> ![](ER-Diagram.png) 
+<img src="ER-Diagram.png" width=800 /> 
 
