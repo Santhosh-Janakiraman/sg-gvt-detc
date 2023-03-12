@@ -45,7 +45,7 @@ pip install -r section_1_data_pipeline/requirements.txt
 
 1. Refer to the documentation 
 
-[a relative link](\\section_2_databases/README_section2.md)
+[a relative link](/section_2_databases/README_section2.md)
 
 
 
