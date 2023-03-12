@@ -19,7 +19,7 @@ This repository holds:
 
     [Refer Document here](/section_3_system_design/README_section_3_design_1.md)
 
-- Design 2 - Strategy for accessing database
+- Design 2 - System architecture diagram
 
     [Refer Document here](/section_3_system_design/README_section_3_design_2.md)
  
