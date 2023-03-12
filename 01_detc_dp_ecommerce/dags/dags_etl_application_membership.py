@@ -5,51 +5,46 @@ from airflow.models import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.python  import PythonOperator
 from airflow.providers.docker.operators.docker import DockerOperator
-
+from airflow.operators.empty import EmptyOperator
+# from airflow.operators.dummy_operator import DummyOperator
 from airflow.models import Variable
+from etl_application_membership import etl
 
-def process_datetime(ti):
-    return (str("sdfajsldkfjslkdfjalksdf"))
-    # dt = ti.xcom_pull(task_ids=['get_datetime'])
-    # if not dt:
-    #     raise Exception('No datetime value')
+
+
+def dp_process_application_membership():
+    e = etl()
+    df = e.process_application_membership()
+    df.show()
+
+def dp_move_files_to_raw():
+    e = etl()
+    e.move_files_to_raw()
     
-    # dt = str(dt[0]).split()
-    # return {
-    #     'year': int(dt[-1])
-    #     ,'month': int(dt[1])
-    #     ,'day': int(dt[2])
-    #     ,'time': int(dt[3])
-    #     ,'day_of_montj': int(dt[0])
-    # }
-
 
 with DAG(
-    dag_id='first_airflow_dag'
+    dag_id='dag_etl_appliction_membership'
     ,schedule_interval='* * * * *'
     ,start_date=datetime(year=2022, month=3, day=11)
     ,catchup=False
 ) as dag: 
     
-    # task_get_datetime = BashOperator(
-    #     task_id='get_datetime',
-    #     bash_command='date'
-    # )
 
-    # task_process_datetime = PythonOperator(
-    #     task_id='process_datetime',
-    #     python_callable=process_datetime
-    # )
+    psstart = EmptyOperator(task_id='psstart')
     
-    docker_test_task = DockerOperator(
-        task_id='docker_test_task',
-        image='dp-executor:latest',
-        api_version='auto',
-        # auto_remove=True,
-        # mount_tmp_dir=False,
-        # container_name='dp-application-memebership',
-        command='echo "this is a test message shown from within the container',
-        docker_url='unix://var/run/docker.sock',
-        network_mode='bridge'
-        #test_adsfadsfadsfsd
-    )
+    task_move_files_to_raw = PythonOperator(
+                                            task_id='task_move_files_to_raw',
+                                            python_callable=dp_move_files_to_raw
+                                            )
+
+    task_process_application_membership = PythonOperator(
+                                                task_id='task_process_application_membership',
+                                                python_callable=dp_process_application_membership
+                                                )
+
+    psend = EmptyOperator(task_id='psend')
+
+    psstart >> task_move_files_to_raw >> task_process_application_membership >> psend
+    # psstart >> task_move_files_to_raw >> psend
+
+     
