@@ -91,6 +91,6 @@ pip install -r section_1_data_pipeline/requirements.txt
     - Data Pipeline is schedlued using airflow and the tasks are run using the pythong operator
     - Screenshots :
 
-        <img src="airflow_run_results.png.png" width=800 /> 
+        <img src="airflow_run_results.png" width=800 /> 
 
-        <img src="airflow_dag_graph.png.png" width=800 /> 
+        <img src="airflow_dag_graph.png" width=800 /> 
