@@ -1,11 +1,14 @@
-
+# SECTION 2 - DATABASES
 ## Requirement
 
 1. Set up a PostgreSQL database using the Docker [image](https://hub.docker.com/_/postgres) provided. We expect at least a Dockerfile which will stand up your database with the DDL statements to create the necessary tables
 2. Produce  entity-relationship diagrams as necessary to illustrate your design
 3. DDL statements that will be required to stand up the databse
 
-## Docker (docker-compose.yaml) 
+*** 
+
+## Implementation Details
+### Docker (docker-compose.yaml) 
 
 1. Docker-compose.yaml included in the reppo
    - Path: section_2_databases/docker-compose.yaml
@@ -13,16 +16,16 @@
      - ensure your docker demon is running and execute  below comamnd in bash/zsh. platform is necessary while running in arm/m1 mac   
        - section_2_database/docker-compose up --platform=linux/amd64 
 
-## DDL Scripts: 
+### DDL Scripts: 
 
 1. Scripts to create the tables in postgres db are included in repo
    - Path: section_2_databases/docker_postgres_init.sql
 
-## ER Diagram
+### ER Diagram
 
 <img src="ER-Diagram.png" width=800 /> 
 
-## ER Description - Tables & Relationships
+### ER Description - Tables & Relationships
 
 1. Transaction tables
    - Transaction Details [tTransactionDetails]
