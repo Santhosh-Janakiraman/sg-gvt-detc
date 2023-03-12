@@ -62,7 +62,7 @@ pip install -r section_1_data_pipeline/requirements.txt
      - Dataset 1 : Valid memerbship list, as per the details given in requirement
        - File Path: 
   
-  [Successful Applications](/datafiles/stage/20230312_17/successful_applications/part-00000-975bb8b3-f1b7-4e06-a07d-d818373b8cb8-c000.csv)
+  [Successful Applications](/section_1_data_pipeline/datafiles/stage/20230312_17/successful_applications/part-00000-975bb8b3-f1b7-4e06-a07d-d818373b8cb8-c000.csv)
 
      - Dataset 2 : Error records. The list includes the error detils in the column comments
   1. create dags 
