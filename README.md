@@ -3,6 +3,9 @@
 
 # Introduction 
 This repository holds:
+    - codes and necessary documents for each assesment sections
+    - Section 1 : Data Pipeline
+    - 
 
 
 # Getting Started
