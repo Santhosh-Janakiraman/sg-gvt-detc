@@ -15,4 +15,14 @@ This repository holds:
 
 ## Section 3 - Sytem Design
 
-## Design 1 - 
+## Design 1 - Strategy for accessing database
+
+[Refer Document here](/section_3_system_design/README_section_3_design_1.md)
+
+## Design 2 - Strategy for accessing database
+
+[Refer Document here](/section_3_system_design/README_section_3_design_2.md)
+ 
+## Section 4 - Charts & Api's
+
+[Refer Document here](/section_4_charts_apis/README_section_4.md)

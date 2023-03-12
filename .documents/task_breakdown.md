@@ -1,6 +1,6 @@
 # detc-000 [Analysis and Planning]
 
-# detc-101 [Prerequisites]
+# DETC-101 [Prerequisites]
     - DOD:
         - Docker setup 
           - install docker in the machine youare executing 
@@ -11,7 +11,7 @@
           - This file will not be used in this implementation
 
 
-# detc-102 [Tasl 1 - Data Pipelines ] & [Task2 - Databases ]
+# DETC-102 [Tasl 1 - Data Pipelines ] & [Task2 - Databases ]
     - DOD:
         - create pipeline task in spark (pyspark) to validate the given records and generate final datasets
           - Dataset 1 : Valid memerbship list, as per the details given in requiremtn
@@ -37,8 +37,16 @@
       - Note: if there is any aggregations or calculations, then those will be perormed and moved to processed folder. As Ther are no such requirement, this folder will be empty for now. 
                 
 
- # detc-103 [Task 3 - System Design]
+ # DETC-103 [Task 3 - System Design]
     - DoD:
       - 
 
- # detc-104 [Task 4 - Charts & API] 
+ # DETC-104 [Task 4 - Charts & API] 
+    - DoD:
+      - Your team decided to design a dashboard to display the statistic of COVID19 cases. You are tasked to display one of the components of the dashboard which is to display a visualisation representation of number of COVID19 cases in Singapore over time.
+
+Your team decided to use the public data from https://documenter.getpostman.com/view/10808728/SzS8rjbc#b07f97ba-24f4-4ebe-ad71-97fa35f3b683.
+
+Display a graph to show the number cases in Singapore over time using the APIs from https://covid19api.com/.
+
+Note: please submit screenshots of the dashboard
