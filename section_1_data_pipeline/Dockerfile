@@ -1,4 +1,3 @@
-# FROM eclipse-temurin:11
 FROM ubuntu:22.10
 ARG HOMEDIR=/pipeline
 ENV HOMEDIR=/pipeline
@@ -11,4 +10,3 @@ WORKDIR ${HOMEDIR}
 COPY . ${HOMEDIR}
 RUN pip3 install --upgrade pip
 RUN pip install -r requirements.txt
-# RUN ["/bin/bash", "-c", "<command>"]
