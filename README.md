@@ -15,11 +15,11 @@ This repository holds:
 
 ## Section 3 - Sytem Design
 
-## Design 1 - Strategy for accessing database
+### Design 1 - Strategy for accessing database
 
 [Refer Document here](/section_3_system_design/README_section_3_design_1.md)
 
-## Design 2 - Strategy for accessing database
+### Design 2 - Strategy for accessing database
 
 [Refer Document here](/section_3_system_design/README_section_3_design_2.md)
  
