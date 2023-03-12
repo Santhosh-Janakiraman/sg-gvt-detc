@@ -17,11 +17,11 @@ This repository holds:
 
 - Design 1 - Strategy for accessing database
 
-[Refer Document here](/section_3_system_design/README_section_3_design_1.md)
+    [Refer Document here](/section_3_system_design/README_section_3_design_1.md)
 
 - Design 2 - Strategy for accessing database
 
-[Refer Document here](/section_3_system_design/README_section_3_design_2.md)
+    [Refer Document here](/section_3_system_design/README_section_3_design_2.md)
  
 ## Section 4 - Charts & Api's
 
