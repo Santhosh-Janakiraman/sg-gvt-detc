@@ -14,14 +14,7 @@ Functionsl Requirements:
 
 
 2. System Architecture
-![image description or alt text](https://raw.githubusercontent.com/Santhosh-Janakiraman/sg-gvt-detc/DETC-103/section_3_system_design/design_1/architecture.png)
 
-![ScreenShot](/section_3_system_design/design_1/System-architecture.png)
-
-![ScreenShot](\System-architecture.png)
-
-
-<img src="System-architecture.png" width="400" />
 
 <img src="System-architecture.png" width=800 /> ![](images/System-architecture.png) 
 
