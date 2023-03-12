@@ -40,6 +40,7 @@ class etl:
             # raw_folder_path="/Users/santhoshjanakiraman/airflow/dags/datafiles/raw"        
             etl.df_processing = etl.spark.read.format("csv").option("header","true").load(raw_path).withColumn("filename",f.input_file_name())
             print("- data files from the path "+raw_path+" were successfully loaded to dataframe")
+            # etl.df_processing.show()
         except Exception as e:
             print("- exception:")
 
@@ -57,7 +58,9 @@ class etl:
                         .withColumn("comments"
                                     , (f.when(f.col("badRecord")==True
                                                 , "mobile_no validation failed")
-                                        ).otherwise( "mobile_no validation Success"))\
+                                        ).otherwise( "mobile_no validation Success"))
+        # etl.df_processing.show()
+                                        
                                                             
 
     # def validate_dob(df):
@@ -114,7 +117,7 @@ class etl:
                                     )
 
     def split_first_last_name(df):  
-        list_name_prefix =["Mr","Dr"]
+        list_name_prefix =["Mr","Dr","Mrs"]
         etl.df_processing = df.withColumn("name_without_prefix", f.when(( f.split(col("name"), "\.").getItem(0)).isin(list_name_prefix) ,
                                                                       f.trim(f.split(col("name"), "\.").getItem(1)))  
                                                                 .otherwise(f.trim(f.split(col("name"), "\.").getItem(0))))\
@@ -127,20 +130,27 @@ class etl:
                                     ,  f.when((col("badRecord")==False) & (col("above_18")==True) == True,
                                                 f.concat(col("last_name"), f.lit("_") , f.substring(f.sha2( f.date_format(col("dob"),"yyyyMMdd" ) ,256) ,0,5))) 
                                         .otherwise(""))
-
-    @staticmethod
-    def process_application_membership(_run_id):
-        print("rund id --------------------------------"+ _run_id)
-        etl.load_raw_data(etl.raw_path, _run_id)
-        etl.validate_mobile_number(etl.df_processing)
-        etl.validate_dob(etl.df_processing)
-        etl.validate_email(etl.df_processing,".+@.+\.com|.biz")
-        etl.calculate_age(etl.df_processing)
-        etl.split_first_last_name(etl.df_processing)
-        etl.generate_membership_id(etl.df_processing)
-        return etl.df_processing
+    
+    def prepare_output_dataframe(df):       
+        print("prepare output dataset")
+        etl.df_processing = etl.df_processing.select(col("membership_id")
+                                                    ,col("first_name")
+                                                    ,col("last_name")
+                                                    ,col("email")
+                                                    ,col("mobile_no")
+                                                    ,f.date_format(col("dob"),"yyyyMMdd").alias("date_of_birth")
+                                                    ,col("above_18")
+                                                    ,col("filename")
+                                                    ,col("badRecord")
+                                                    ,col("comments"))
+        etl.df_processing.show()
 
     
+    
+
+    def delete_folder(delete_path):
+        shutil.rmtree(os.path.join(delete_path))
+
     def delete_files(delete_path):
         for root, dirs, files in os.walk(delete_path):
             for f in files:
@@ -159,7 +169,7 @@ class etl:
         if not os.path.exists(dest):
             os.makedirs(dest)
         else:
-            etl.delete_files(dest)
+            etl.delete_files(dest)  
 
         for item in os.listdir(src):
             print("file: "+str(item))
@@ -181,7 +191,32 @@ class etl:
         print("rund id --------------------------------"+ _run_id)
         etl.copy_files_and_folders(etl.input_path,etl.raw_path, _run_id)
         etl.delete_files(etl.input_path)
+    
+
+    def write_dataframe_to_stage(df, stage_path, _runid):
+
+        etl.delete_folder(etl.stage_path+"/"+_runid)
+        print(etl.stage_path+"/"+_runid)
+
+        print("write transformed dataframe to stage")
+        write_file = stage_path+"/"+_runid
+        df.repartition(1).write.option("header","true").csv(write_file)
+
+
+    @staticmethod
+    def process_application_membership(_run_id):
+        print("rund id --------------------------------"+ _run_id)
+        etl.load_raw_data(etl.raw_path, _run_id)
+        etl.validate_mobile_number(etl.df_processing)
+        etl.validate_dob(etl.df_processing)
+        etl.validate_email(etl.df_processing,".+@.+\.com|.biz")
+        etl.calculate_age(etl.df_processing)
+        etl.split_first_last_name(etl.df_processing)
+        etl.generate_membership_id(etl.df_processing)
+        etl.prepare_output_dataframe(etl.df_processing)
+        etl.write_dataframe_to_stage(etl.df_processing,etl.stage_path,_run_id)
         
+        return etl.df_processing
 # etl.load_raw_data()
 # etl.validate_mobile_number(etl.df_processing)
 # etl.validate_dob(etl.df_processing)
@@ -190,11 +225,7 @@ class etl:
 # etl.split_first_last_name(etl.df_processing)
 # etl.generate_membership_id(etl.df_processing)
 # etl.df_processing.show()
-
-
 # etl.copy_files_and_folders(input_path,raw_path)
-
-
-
-
 # etl.delete_files(input_path)
+
+etl.process_application_membership("20230312_15")
