@@ -58,26 +58,29 @@ pip install -r section_1_data_pipeline/requirements.txt
 
 ### Pipelnie Task Details
 
-  - created pipeline task in spark (pyspark) to validate the given records and generate final datasets
-          - Dataset 1 : Valid memerbship list, as per the details given in requirement
-            - File Path: [Successful Applications](/datafiles/stage/20230312_17/successful_applications/part-00000-975bb8b3-f1b7-4e06-a07d-d818373b8cb8-c000.csv)
-          - Dataset 2 : Error records. The list includes the error detils in the column comments
-        - create dags 
-          - Create a dag to excure below task
-            - Copy sources file to Raw Folder
-              - Copy the file from the input folder (assuming this is the source location that will receive the files ) to raw
-              - In raw folder create a subfolder with runId (runId is the date time in "yyyyMMdd_HH" format)
-              - Paste the copied files from input folder to raw/<runId> folder
-              - Remove the files in Input folder, to avoid processing the files again in next run
-            - Validate and Transform input data
-              - Load files in raw folder to a dataframe
-              - Execute below validations
-                - Validate Mobile number
-                - Validate dob
-                - Validate email address
-              - Fucntional Requirements
-                - Calculate Age
-                - Split full name in to first and last name
-              - Prepare final data set
-              - Write the result dataframt to stage folder
-      - Note: if there is any aggregations or calculations, then those will be perormed and moved to processed folder. As Ther are no such requirement, this folder will be empty for now. 
+  1. created pipeline task in spark (pyspark) to validate the given records and generate final datasets
+     - Dataset 1 : Valid memerbship list, as per the details given in requirement
+       - File Path: 
+  
+  [Successful Applications](/datafiles/stage/20230312_17/successful_applications/part-00000-975bb8b3-f1b7-4e06-a07d-d818373b8cb8-c000.csv)
+
+     - Dataset 2 : Error records. The list includes the error detils in the column comments
+  1. create dags 
+     - Create a dag to excure below task
+     - Copy sources file to Raw Folder
+        - Copy the file from the input folder (assuming this is the source location that will receive the files ) to raw
+        - In raw folder create a subfolder with runId (runId is the date time in "yyyyMMdd_HH" format)
+        - Paste the copied files from input folder to raw/<runId> folder
+        - Remove the files in Input folder, to avoid processing the files again in next run
+      - Validate and Transform input data
+        - Load files in raw folder to a dataframe
+        - Execute below validations
+          - Validate Mobile number
+          - Validate dob
+          - Validate email address
+        - Fucntional Requirements
+          - Calculate Age
+          - Split full name in to first and last name
+        - Prepare final data set
+        - Write the result dataframt to stage folder
+    - Note: if there is any aggregations or calculations, then those will be perormed and moved to processed folder. As Ther are no such requirement, this folder will be empty for now. 
