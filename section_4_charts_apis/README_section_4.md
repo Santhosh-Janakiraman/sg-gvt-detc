@@ -25,6 +25,6 @@
 ### Dashboard Design 
 3. Below dashboard was created
    - Designer View
-     - <img src="powerbi_dashboard_designer_view.png" width=800 /> 
+   <img src="powerbi_dashboard_designer_view.png" width=800 /> 
    - Preview
-     - <img src="Powerbi_dashboard.png" width=800 /> 
+   <img src="Powerbi_dashboard.png" width=800 /> 
