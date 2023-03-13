@@ -252,5 +252,5 @@ oprder by spending;
 -- 2. Which are the top 3 items that are frequently brought by members
 select top 3 ItemName, count(*) frequent_buy from tTransactionDetails trn, tItemDetails itm
 where trn.itemid = itm.itemid
-group by Item_Code 
+group by ItemName 
 order by frequent_buy; 
