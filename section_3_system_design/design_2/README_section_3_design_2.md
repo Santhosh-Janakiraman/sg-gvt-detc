@@ -25,8 +25,8 @@ produce a system architecture diagram (Visio, PowerPoint, draw.io) depicting the
       - Low Latency
       - Least Privilege
 
-Do indicate any assumptions you have made regarding the architecture. You are required to provide a detailed explanation on the diagram.
-*** 
+## Assumptions
+
 
 ## Design Details
 
@@ -38,5 +38,7 @@ High Level Architecture
 
 Data Pipeline 
 
-<img src="design_2_data_pipeline.png" width=800 /> 
+- Data from various sources, in this case (kafka stream and website) are loaded into raw 
+
+<img src="_design_2_data_pipeline.png" width=800 /> 
 
