@@ -32,7 +32,7 @@ produce a system architecture diagram (Visio, PowerPoint, draw.io) depicting the
 - 
 ## Design Details
 
-[Source draw.io file](/section_3_system_design/design_1/Architecture.drawio)
+[Source draw.io file](/section_3_system_design/design_2/Architecture.drawio)
 
 ### System Architecture
 
