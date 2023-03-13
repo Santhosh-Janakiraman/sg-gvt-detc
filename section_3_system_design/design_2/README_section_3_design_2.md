@@ -34,8 +34,6 @@ produce a system architecture diagram (Visio, PowerPoint, draw.io) depicting the
 
 ### System Architecture
 
-High Level Architecture
-
 - Lading Zone Subscription
   - All the incoming traffic from the external source will be thoguth the landing zone where firewall and other security sttings are enabled
   - An app gateway is setup in the subscription to forwared the trafffice to various subscription based on the desgin and requiremnt
@@ -66,7 +64,7 @@ High Level Architecture
 
 
 
-Data Pipeline Architecture 
+### Data Pipeline Architecture 
 
 <img src="_design_2_data_pipeline.png" width=800 /> 
 
