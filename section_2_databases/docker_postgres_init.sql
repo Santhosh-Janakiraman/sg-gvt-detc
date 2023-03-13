@@ -239,3 +239,18 @@ ADD CONSTRAINT  pk_tTransactionDetails_UpdatedBy FOREIGN KEY(UpdatedBy) REFERENC
 ALTER TABLE tItemDetails 
 ADD CONSTRAINT  pk_tItemDetails_ManufacturerCode FOREIGN KEY(ManufacturerCode) REFERENCES tItemDetails(ItemCode)
 
+---
+
+-- Queries 
+-- 1. Which are the top 10 members by spending
+
+
+select top 10 MembershipId,sum(cost) spending from tTransactionDetails 
+group by MembershipId
+oprder by spending;
+
+-- 2. Which are the top 3 items that are frequently brought by members
+select top 3 ItemName, count(*) frequent_buy from tTransactionDetails trn, tItemDetails itm
+where trn.itemid = itm.itemid
+group by Item_Code 
+order by frequent_buy; 

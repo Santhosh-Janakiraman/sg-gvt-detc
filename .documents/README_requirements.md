@@ -72,6 +72,7 @@ You are tasked to write a SQL statement for each of the following task:
 2. Which are the top 3 items that are frequently brought by members
 
 
+
 ---
 
 ## Section3: System Design

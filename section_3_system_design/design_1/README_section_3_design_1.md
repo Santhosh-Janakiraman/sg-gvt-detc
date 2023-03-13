@@ -19,7 +19,11 @@
 
 ### System Architecture
 
+[Source draw.io file](/section_3_system_design/design_1/design_1.drawio)
+
 <img src="System-architecture.png" width=800 /> ![](images/System-architecture.png) 
+
+
 
 ### Desigm Details 
 
