@@ -32,6 +32,8 @@ produce a system architecture diagram (Visio, PowerPoint, draw.io) depicting the
 - 
 ## Design Details
 
+[Source draw.io file](/Architecture.drawio)
+
 ### System Architecture
 
 - Lading Zone Subscription
