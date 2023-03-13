@@ -7,21 +7,21 @@ This repository holds:
  
 ## Section 1 - Data Pipeline
 
-[Refer Document here](/section_2_databases/README_section_2.md)
+[Refer Document here](/section_1_data_pipeline/README_section_1.md)
     
 ## Section 2 - Databases
 
-[Refer Document here](/section_1_data_pipeline/README_section_1.md)
+[Refer Document here](/section_2_databases/README_section_2.md)
 
 ## Section 3 - Sytem Design
 
 - Design 1 - Strategy for accessing database
 
-    [Refer Document here](/section_3_system_design/README_section_3_design_1.md)
+    [Refer Document here](/section_3_system_design/design_1/README_section_3_design_1.md)
 
 - Design 2 - System architecture diagram
 
-    [Refer Document here](/section_3_system_design/README_section_3_design_2.md)
+    [Refer Document here](/section_3_system_design/design_2/README_section_3_design_2.md)
  
 ## Section 4 - Charts & Api's
 
