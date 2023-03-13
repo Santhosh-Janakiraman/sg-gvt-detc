@@ -66,5 +66,17 @@
 
 
       
+## Design access based on DB level RBAC
 
+<img src="db_rbac.png" width=500 /> 
 
+- The tables in the database can be grouped under the schema's based on the fucntional use case
+- The should be 2 set's of roles per schema 
+  - role 1 : read write role to insert, updated, delete all tables in the schema
+  - role 2 : read only role to select the records
+- The users should be assinged to these roles based on the requirment
+  - in our case
+    - Sales and logistics team will be granted the read and write role for all schema
+    - Anlayitcs team will be granted the read only rolw for all the schemas
+    - In there are any who dont need access to particutlar schma, that could be blocked as well., as the role created will be at schema level
+    - for drop access, it is recommende to create an role with ownership access per schema and also a common rolt to an admin. This is essential to maintain the principle of lease prvilatges and any data loss will be more accountable. 
