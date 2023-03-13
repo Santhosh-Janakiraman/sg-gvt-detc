@@ -77,5 +77,5 @@
  # DETC-104 [Task 4 - Charts & API] 
     - DoD: Display a graph to show the number cases in Singapore over time using the APIs from https://covid19api.com/
 
- # DETC-104 [Task 5 - Machine Learning] 
+ # DETC-105 [Task 5 - Machine Learning] 
     - Not attempted
