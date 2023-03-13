@@ -2,9 +2,13 @@
  
 
 ## Introduction 
-This repository holds:
-    - codes and necessary documents for each assesment sections
- 
+- This repository holds codes and necessary documents for each assesment sections
+- Requirement Received: 
+  - [Refer Document here](/.documents/README_requirements.md)
+- Task Break-Down: 
+  - [Refer Document here](/.documents/README_task_breakdown.md)
+
+
 ## Section 1 - Data Pipeline
 
 [Refer Document here](/section_1_data_pipeline/README_section_1.md)
@@ -26,3 +30,7 @@ This repository holds:
 ## Section 4 - Charts & Api's
 
 [Refer Document here](/section_4_charts_apis/README_section_4.md)
+
+## Section 5 - Machine Learing
+
+- Not attempted
